@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const Book = ({ bookList }) => {
   return (
     <ul>
@@ -6,6 +8,10 @@ const Book = ({ bookList }) => {
       })};
     </ul>
   );
+}
+
+Book.proptype = {
+    bookList: PropTypes.array,
 }
 
 export default Book

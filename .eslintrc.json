@@ -23,6 +23,7 @@
     "ignorePatterns": [
       "dist/",
       "build/",
+      "components/",
       "setupTest.js",
       "App.js"
     ]
