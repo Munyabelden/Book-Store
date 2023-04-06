@@ -7,11 +7,7 @@ import Layout from './components/Layout';
 function App() {
   return (
     <div className="App">
-      <Layout />
-      <Routes>
-        <Route path="/" element={ <Books />} />
-        <Route path="/category" element={ <Category />} />
-      </Routes>
+
     </div>
   );
 }
