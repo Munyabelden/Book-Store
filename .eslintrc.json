@@ -24,6 +24,7 @@
       "dist/",
       "build/",
       "components/",
+      "redux/",
       "setupTest.js",
       "App.js"
     ]
