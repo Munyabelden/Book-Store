@@ -94,7 +94,7 @@ You can deploy this project using:
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-- [ ] **More fuctionality for the add book to list**
+- [ ] **More funtinality for the status checker button**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
