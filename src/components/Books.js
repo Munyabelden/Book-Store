@@ -9,13 +9,11 @@ const Books = () => {
 
   const handleRemoveBook = (bookId) => {
       dispatch(removeBook({id: bookId}));
-      console.log(bookId);
   }  
 
   const handleAddBook = (item_id, author, title, e) => {
     e.preventDefault();
     dispatch(addBook({ item_id, author, title }));
-    console.log(item_id)
   }
   
   return (
