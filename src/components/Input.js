@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
-const Input = ({ name, text}) => {
-  return(<input type={text} name={name} id= {text} placeholder={name} key={name}/>);
+const Input = ({ name, text, handleChange}) => {
+  return(<input type={text} name={name} id= {text} placeholder={name} onChange={ handleChange } key={name}/>);
 }
 
 Input.prototype = {

@@ -1,12 +1,30 @@
+import React, { useState } from 'react';
 import Input from "./Input";
+import Button from './AddBookButton';
 
-const Form = () => {
+const Form = ({ handleAddBook, bookList }) => {
+  const [bookAuthor, setBookAuthor] = useState("");
+  const [bookTitle, setBookTitle] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleAddBook( bookList.length , bookAuthor, bookTitle, e);
+  }
+
+  const handleTitleChange = (e) => {
+    setBookTitle(e.target.value);
+  }
+
+  const handleAuthorChange = (e) => {
+    setBookAuthor(e.target.value);
+  }
+
   return (
-    <form>
-      <Input type="text" name="Book Title" id="text" key="Book Title" />
-      <Input type="text" name="Book Author" id="text" key="Book Author" />
-      <button type="submit">Add Book</button>
-    </form> 
+    <form onSubmit={handleSubmit}>
+      <Input type="text" name="Book Title" id="text" handleChange={ handleTitleChange } key="Book title" />
+      <Input type="text" name="Book Author" id="text" handleChange={ handleAuthorChange } key="Book Author" />
+      <Button type="submit" name="Add Book" />
+    </form>
   );
 }
 
