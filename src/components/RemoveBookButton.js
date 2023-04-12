@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function Button({ name, handleRemoveBook, book }) {
-  return (<button onClick={() => handleRemoveBook(book.item_id)}>{name}</button>);
+function Button({ name, handleRemoveBook }) {
+  return (<button onClick={() => handleRemoveBook()}>{name}</button>);
 }
 
 Button.propTypes = {

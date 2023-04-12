@@ -1,30 +1,59 @@
-import React, { useState } from 'react';
-import Input from "./Input";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createBook } from '../redux/books/booksSlice';
+import Input from './Input';
 import Button from './AddBookButton';
 
-const Form = ({ handleAddBook, bookList }) => {
-  const [bookAuthor, setBookAuthor] = useState("");
-  const [bookTitle, setBookTitle] = useState("");
+function Form() {
+  const dispatch = useDispatch();
+
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [category, setCategory] = useState('Fiction');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case 'title':
+        setTitle(value);
+        break;
+      case 'author':
+        setAuthor(value);
+        break;
+      case 'category':
+        setCategory(value);
+        break;
+      default:
+        break;
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleAddBook( bookList.length , bookAuthor, bookTitle, e);
-  }
-
-  const handleTitleChange = (e) => {
-    setBookTitle(e.target.value);
-  }
-
-  const handleAuthorChange = (e) => {
-    setBookAuthor(e.target.value);
-  }
+    if (title && author && category) {
+      dispatch(createBook({ title, author, category }));
+      setTitle('');
+      setAuthor('');
+      setCategory('');
+    }
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Input type="text" name="Book Title" id="text" handleChange={ handleTitleChange } key="Book title" />
-      <Input type="text" name="Book Author" id="text" handleChange={ handleAuthorChange } key="Book Author" />
-      <Button type="submit" name="Add Book" />
-    </form>
+      <form onSubmit={handleSubmit}>
+        <Input type="text" name="title" placeholder="Book title" value={title} handleChange={handleChange} />
+        <Input type="text" name="author" placeholder="Add author" value={author} handleChange={handleChange} />
+        <select name="category" value={category} onChange={handleChange}>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Sci-Fi">Sci-Fi</option>
+          <option value="Mystery">Mystery</option>
+          <option value="Thriller">Thriller</option>
+          <option value="Romance">Romance</option>
+          <option value="Dystopian">Dystopian</option>
+          <option value="Comptemporary">Contemporary</option>
+          <option value="Comics">Comics</option>
+        </select>
+        <Button type="submit" name="Add Book"/>
+      </form>
   );
 }
 

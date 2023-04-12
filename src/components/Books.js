@@ -1,26 +1,36 @@
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Form from './form';
+import { fetchPosts } from '../redux/books/booksSlice';
 import Book from './Book';
-import { addBook, removeBook } from '../redux/books/booksSlice';
+import  Form  from './form.js';
 
 const Books = () => {
-  const books = useSelector((state) => state.books.books);
+  const { books } = useSelector((state) => state); 
   const dispatch = useDispatch();
 
-  const handleRemoveBook = (bookId) => {
-      dispatch(removeBook({id: bookId}));
-  }  
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
 
-  const handleAddBook = (item_id, author, title, e) => {
-    e.preventDefault();
-    dispatch(addBook({ item_id, author, title }));
-  }
-  
+  const renderBooks = () => {
+    if (Object.keys(books).length > 0) {
+      return Object.keys(books).map((id) => {
+        const [firstBook] = books[id];
+        const { author, title, category } = firstBook;
+        return (
+          <div key={id}>
+            <Book author={author} title={title} category={category} bookId={id} />
+          </div>
+        );
+      });
+    }
+    return null;
+  };
+
   return (
-    <div className="Books">
-      <h2>Books</h2>
-      <Book bookList={books} handleRemoveBook={ handleRemoveBook } />
-      <Form bookList={books} handleAddBook={ handleAddBook } />
+    <div>
+      {renderBooks()}
+      <Form />
     </div>
   );
 };
