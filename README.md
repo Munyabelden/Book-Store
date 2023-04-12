@@ -26,6 +26,9 @@
 
 ## 🛠 Built With <a name="built-with"></a>
 
+- [ ] React
+- [ ] React Router
+- [ ] Redux
 ### Tech Stack <a name="tech-stack"></a>
 
 <details>
