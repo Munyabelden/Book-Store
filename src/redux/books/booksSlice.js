@@ -1,41 +1,36 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-export const initialState = {
-  books: [
-    {
-      "item_id": "item1",
-      "title": "The Great Gatsby",
-      "author": "John Smith",
-      "category": "Fiction"
-    },
-    {
-      "item_id": "item2",
-      "title": "Anna Karenina",
-      "author": "Leo Tolstoy",
-      "category": "Fiction"
-    },
-    {
-      "item_id": "item3",
-      "title": "The Selfish Gene",
-      "author": "Richard Dawkins",
-      "category": "Nonfiction"
-    }
-  ],
-};
+const POST_URL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/AeuLAMbJtFADS9a8kaop/books';
 
-export const bookSlice = createSlice({
-  name: 'book',
-  initialState,
-  reducers: {
-    addBook: (state, action) => {
-      state.books.push(action.payload);
-    },
-    removeBook: (state, action) => {
-      state.books = state.books.filter(book => book.item_id !== action.payload.id);
-    },
-  },
+export const fetchPosts = createAsyncThunk('bookstore/books/LOAD', async () => {
+  const response = await axios.get(POST_URL);
+  return response.data;
 });
 
-export const { addBook, removeBook } = bookSlice.actions;
+export const createBook = createAsyncThunk('bookstore/books/CREATE', async ({ author, title, category }) => {
+  const book = {
+    item_id: uuidv4(), author, title, category,
+  };
+  await axios.post(POST_URL, book);
+  const response = await axios.get(POST_URL);
+  return response.data;
+});
 
-export default bookSlice.reducer;
+export const removeBook = createAsyncThunk('bookstore/books/REMOVE', async (bookId) => {
+  await axios.delete(`${POST_URL}/${bookId}`);
+  const response = await axios.get(POST_URL);
+  return response.data;
+});
+
+export default function booksSlice(state = {}, action) {
+  switch (action.type) {
+    case fetchPosts.fulfilled.type:
+    case createBook.fulfilled.type:
+    case removeBook.fulfilled.type:
+      return action.payload;
+    default:
+      return state;
+  }
+}
