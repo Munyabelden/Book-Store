@@ -29,6 +29,7 @@
 - [ ] React
 - [ ] React Router
 - [ ] Redux
+- [ ] CSS
 ### Tech Stack <a name="tech-stack"></a>
 
 <details>
