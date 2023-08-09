@@ -90,6 +90,7 @@ div > span {
 
 .buttons {
   background: #fff;
+  margin-bottom: 15px;
 }
 
 .buttons > button {
@@ -106,4 +107,14 @@ div > span {
 .buttons > button:not(:first-child) {
   padding-left: 10px;
   border-left: 1px solid #e8e8e8;
+}
+
+@media (max-width: 768px) {
+  .display {
+    flex-direction: column;
+  }
+
+  .chapter {
+    flex-direction: column;
+  }
 }

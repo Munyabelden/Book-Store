@@ -10,6 +10,7 @@ const Books = () => {
 
   useEffect(() => {
     dispatch(fetchPosts());
+    console.log(books);
   }, [dispatch]);
 
   const renderBooks = () => {
